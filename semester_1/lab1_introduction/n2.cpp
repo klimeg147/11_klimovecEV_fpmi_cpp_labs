@@ -1,7 +1,8 @@
 #include <iostream>
-using namespace std;
 
 int main() {
+	using std::cout;
+	using std::cin;
 	int ost;
 	long n;
 	long long sum = 0, pr = 1;

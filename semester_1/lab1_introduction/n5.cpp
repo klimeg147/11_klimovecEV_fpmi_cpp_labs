@@ -1,7 +1,8 @@
 #include <iostream>
-using namespace std;
 
 int main() {
+	using std::cout;
+	using std::cin;
 	int num1, num2, d1, d2;
 	cin >> num1 >> num2;
 	int k = min(num1, num2);

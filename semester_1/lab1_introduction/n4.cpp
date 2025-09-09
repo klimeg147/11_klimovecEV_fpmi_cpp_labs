@@ -1,7 +1,8 @@
 #include <iostream>
-using namespace std;
 
 int main() {
+	using std::cout;
+	using std::cin;
 	long k;
 	long long dv_fact = 1;
 	cin >> k;

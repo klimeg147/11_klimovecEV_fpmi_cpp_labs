@@ -1,7 +1,8 @@
 #include <iostream>
-using namespace std;
 
 int main() {
+	using std::cout;
+	using std::cin;
 	int n1, n2 = 0, mnosh = 1000;
 	cin >> n1;
 	int n11 = n1;
