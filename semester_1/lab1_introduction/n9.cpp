@@ -4,6 +4,7 @@ int main() {
 	using std::cout;
 	using std::cin;
 	int n1, n2 = 0, mnosh = 1000;
+	cout << "Enter number n: ";
 	cin >> n1;
 	int n11 = n1;
 	int ost1;

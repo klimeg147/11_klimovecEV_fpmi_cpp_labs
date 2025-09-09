@@ -6,6 +6,7 @@ int main() {
 	int ost;
 	long n;
 	long long sum = 0, pr = 1;
+	cout << "Enter number n: ";
 	cin >> n;
 	for (int i = 1; i <= n; ++i) {
 		ost = i % 2;

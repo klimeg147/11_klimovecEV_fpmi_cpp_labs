@@ -5,6 +5,7 @@ int main() {
 	using std::cin;
 	long k;
 	long long dv_fact = 1;
+	cout << "Enter number k: ";
 	cin >> k;
 	while (k > 1) {
 		dv_fact = dv_fact * k;
