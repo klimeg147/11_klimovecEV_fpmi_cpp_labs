@@ -3,8 +3,8 @@
 int main() {
 	using std::cin;
 	using std::cout;
-	int n, pal1 = 0, ost, i2; // ost - остаток от деления, pal1,2 - перевёрнутый i для проверки на палиндром
-	long i3, i4, pal2 = 0; // i2, i3, i4 - запапасные i (i3, i4 - квадраты)
+	int n, pal1 = 0, ost, i2; // ost - mod, pal1,2 - inverted i to check for palindrome
+	long i3, i4, pal2 = 0; // i2, i3, i4 - reserve i (i3, i4 - squares)
 	cout << "Enter int n belonging to N: ";
 	if (!(cin >> n)) {
 		cout << "Error (Wrong input)";
