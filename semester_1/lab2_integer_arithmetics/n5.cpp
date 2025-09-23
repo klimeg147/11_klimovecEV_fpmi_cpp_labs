@@ -6,7 +6,7 @@ int main() {
 	int n, pal1 = 0, ost, i2; // ost - mod, pal1,2 - inverted i to check for palindrome
 	long i3, i4, pal2 = 0; // i2, i3, i4 - reserve i (i3, i4 - squares)
 	cout << "Enter int n belonging to N: ";
-	if (!(cin >> n)) {
+	if (!(cin >> n) || (n < 1)) {
 		cout << "Error (Wrong input)";
 		std::exit(1);
 	}
