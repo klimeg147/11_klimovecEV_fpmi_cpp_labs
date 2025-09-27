@@ -15,9 +15,8 @@ int main() {
     int last_min_modul_index = 0;
     double sum = 0;
     cout << "Enter the number n of array elements: ";
-    cin >> n;
-    if (n > MAX_ARR) {
-        cout << "Wrong input, the number entered is too large";
+    if (!(cin >> n) || (n > MAX_ARR) || (n < 0)) {
+        cout << "Wrong input" << "\n";
         std::exit(1);
     }
     cout << "\n";
