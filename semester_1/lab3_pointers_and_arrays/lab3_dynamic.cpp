@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <random>
 
@@ -6,7 +5,7 @@ int main() {
 
     using std::cin;
     using std::cout;
-    int n, a, b, random_number, sum = 0;
+    int n, a, b, random_number, sum = 0, cur;
     char vibor_vvoda;
     long long proisv = 1;
     cout << "Enter the natural number n: ";
@@ -69,21 +68,21 @@ int main() {
     }
     cout << "The sum of the array elements located between the first and last positive elements is:" << sum << "\n";
     cout << "----------------------------------------------------" << "\n";
-    int* arr2 = new int[n]; // arr2 - future result array
-    int ind = 0;
-    for (int i = 0; i < n; i++) {
+    int j;
+    for (int i = 1; i < n; i++) {
         if (arr[i] < 0) {
-            arr2[ind++] = arr[i];
-        }
-    }
-    for (int i = 0; i < n; i++) {
-        if (arr[i] >= 0) {
-            arr2[ind++] = arr[i];
+            cur = arr[i];
+            j = i - 1;
+            while (j >= 0 && arr[j] >= 0) {
+                arr[j + 1] = arr[j];
+                j--;
+            }
+            arr[j + 1] = cur;
         }
     }
     cout << "Result array:" << "\n";
     for (int i = 0; i < n; i++) {
-        cout << arr2[i] << "\n";
+        cout << arr[i] << "\n";
     }
     delete[] arr;
     return 0;
