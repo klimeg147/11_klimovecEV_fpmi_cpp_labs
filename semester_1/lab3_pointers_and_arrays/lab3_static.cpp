@@ -2,18 +2,81 @@
 #include <random>
 #include <algorithm>
 #include <cmath>
+using std::cout;
+using std::cin;
+
+void arrcout(double arr[], int n) {
+
+    for (int i = 0; i < n; i++) {
+        cout << arr[i] << "\n";
+    }
+    return;
+}
+
+void sumafterminabs(double arr[], int n) {
+
+    double min_modul = std::abs(arr[0]);
+    int last_min_modul_index = 0;
+    double sum = 0;
+    for (int i = 1; i < n; i++) {
+        double cur_modul = std::abs(arr[i]);
+        if (cur_modul <= min_modul) {
+            min_modul = cur_modul;
+            last_min_modul_index = i;
+        }
+    }
+    if (last_min_modul_index < (n - 1)) {
+        for (int i = last_min_modul_index + 1; i < n; i++) {
+            sum += arr[i];
+        }
+        cout << "The sum of all elements of the array after the minimum one by absolute value is equal to: " << sum << "\n";
+    }
+    else {
+        cout << "the last element of the array is the minimum in modulus" << "\n";
+    }
+    return;
+}
+
+void swapmaxmin(double arr[], int n) {
+
+    int index_max = 0, index_min = 0;
+    for (int i = 1; i < n; i++) {
+        if (arr[i] > arr[index_max]) {
+            index_max = i;
+        }
+        if (arr[i] < arr[index_min]) {
+            index_min = i;
+        }
+    }
+    std::swap(arr[index_max], arr[index_min]);
+    return;
+}
+
+void sortarr(double arr[], int n) {
+
+    for (int i = 0; i < n; i++) {
+        if (arr[i] < 0) {
+            arr[i] = arr[i] * arr[i];
+        }
+    }
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                double temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+}
+
 
 int main() {
 
-    using std::cout;
-    using std::cin;
     const int MAX_ARR = 1000;
     int n;
     char vibor_vvoda;
     double a, b,/*a and b are the boundaries of random elements*/ random_number;
-    int index_max = 0, index_min = 0;
-    int last_min_modul_index = 0;
-    double sum = 0;
     cout << "Enter the number n of array elements: ";
     if (!(cin >> n) || (n > MAX_ARR) || (n < 0)) {
         cout << "Wrong input" << "\n";
@@ -49,59 +112,16 @@ int main() {
     }
     cout << "-------------------------------------------------------" << "\n";
     cout << "Initial array: " << "\n";
-    for (int i = 0; i < n; i++) {
-        cout << arr[i] << "\n";
-    }
+    arrcout(arr, n);
     cout << "-------------------------------------------------------" << "\n";
-    double min_modul = std::abs(arr[0]);
-    for (int i = 1; i < n; i++) {
-        double cur_modul = std::abs(arr[i]);
-        if (cur_modul <= min_modul) {
-            min_modul = cur_modul;
-            last_min_modul_index = i;
-        }
-    }
-    if (last_min_modul_index < (n - 1)) {
-        for (int i = last_min_modul_index + 1; i < n; i++) {
-            sum += arr[i];
-        }
-        cout << "The sum of all elements of the array after the minimum one by absolute value is equal to: " << sum << "\n";
-    }
-    else {
-        cout << "the last element of the array is the minimum in modulus" << "\n";
-    }
+    sumafterminabs(arr, n);
     cout << "-------------------------------------------------------" << "\n";
-    for (int i = 1; i < n; i++) {
-        if (arr[i] > arr[index_max]) {
-            index_max = i;
-        }
-        if (arr[i] < arr[index_min]) {
-            index_min = i;
-        }
-    }
-    std::swap(arr[index_max], arr[index_min]);
+    swapmaxmin(arr, n);
     cout << "array from task 1: " << "\n";
-    for (int i = 0; i < n; i++) {
-        cout << arr[i] << "\n";
-    }
+    arrcout(arr, n);
     cout << "-------------------------------------------------------" << "\n";
-    for (int i = 0; i < n; i++) {
-        if (arr[i] < 0) {
-            arr[i] = arr[i] * arr[i];
-        }
-    }
-    for (int i = 0; i < n - 1; i++) {
-        for (int j = 0; j < n - i - 1; j++) {
-            if (arr[j] > arr[j + 1]) {
-                double temp = arr[j];
-                arr[j] = arr[j + 1];
-                arr[j + 1] = temp;
-            }
-        }
-    }
+    sortarr(arr, n);
     cout << "Sorted array:" << "\n";
-    for (int i = 0; i < n; i++) {
-        cout << arr[i] << "\n";
-    }
+    arrcout(arr, n);
     return 0;
 }
