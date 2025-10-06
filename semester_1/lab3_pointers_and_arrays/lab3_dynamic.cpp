@@ -1,13 +1,66 @@
 #include <iostream>
 #include <random>
+using std::cin;
+using std::cout;
+
+void arrcout(int arr[], int n) {
+
+    for (int i = 0; i < n; i++) {
+        cout << arr[i] << "\n";
+    }
+}
+
+void productevennum(int arr[], int n) {
+
+    long long proisv = 1;
+    int ost;
+    for (int i = 1; i < n; i += 2) {
+        proisv *= arr[i];
+    }
+    cout << "the product of array elements with even numberss is: " << proisv << "\n";
+    return;
+}
+
+void sumnumfirstlastplus(int arr[], int n) {
+
+    int sum = 0;
+    int fst_plus_ind, lst_plus_ind;
+    for (int i = 0; i < n; i++) {
+        if (arr[i] > 0) {
+            lst_plus_ind = i;
+        }
+    }
+    for (int i = (n - 1); i >= 0; i--) {
+        if (arr[i] > 0) {
+            fst_plus_ind = i;
+        }
+    }
+    for (int i = (fst_plus_ind + 1); i < lst_plus_ind; i++) {
+        sum += arr[i];
+    }
+    cout << "The sum of the array elements located between the first and last positive elements is:" << sum << "\n";
+}
+
+void sortarr(int arr[], int n) {
+
+    int j, cur;
+    for (int i = 1; i < n; i++) {
+        if (arr[i] < 0) {
+            cur = arr[i];
+            j = i - 1;
+            while (j >= 0 && arr[j] >= 0) {
+                arr[j + 1] = arr[j];
+                j--;
+            }
+            arr[j + 1] = cur;
+        }
+    }
+}
 
 int main() {
 
-    using std::cin;
-    using std::cout;
-    int n, a, b, random_number, sum = 0, cur;
+    int n, a, b, random_number;
     char vibor_vvoda;
-    long long proisv = 1;
     cout << "Enter the natural number n: ";
     if (!(cin >> n) || (n < 0)) {
         cout << "Wrong input";
@@ -41,49 +94,17 @@ int main() {
         cout << "wrong input" << "\n";
         std::exit(1);
     }
+    cout << "---------------------------------------------------" << "\n";
     cout << "Source array:" << "\n";
-    for (int i = 0; i < n; i++) {
-        cout << arr[i] << "\n";
-    }
+    arrcout(arr, n);
     cout << "---------------------------------------------------" << "\n";
-    int ost;
-    for (int i = 1; i < n; i += 2) {
-        proisv *= arr[i];
-    }
-    cout << "the product of array elements with even numberss is: " << proisv << "\n";
+    productevennum(arr, n);
     cout << "---------------------------------------------------" << "\n";
-    int fst_plus_ind, lst_plus_ind;
-    for (int i = 0; i < n; i++) {
-        if (arr[i] > 0) {
-            lst_plus_ind = i;
-        }
-    }
-    for (int i = (n - 1); i >= 0; i--) {
-        if (arr[i] > 0) {
-            fst_plus_ind = i;
-        }
-    }
-    for (int i = (fst_plus_ind + 1); i < lst_plus_ind; i++) {
-        sum += arr[i];
-    }
-    cout << "The sum of the array elements located between the first and last positive elements is:" << sum << "\n";
+    sumnumfirstlastplus(arr, n);
     cout << "----------------------------------------------------" << "\n";
-    int j;
-    for (int i = 1; i < n; i++) {
-        if (arr[i] < 0) {
-            cur = arr[i];
-            j = i - 1;
-            while (j >= 0 && arr[j] >= 0) {
-                arr[j + 1] = arr[j];
-                j--;
-            }
-            arr[j + 1] = cur;
-        }
-    }
+    sortarr(arr, n);
     cout << "Result array:" << "\n";
-    for (int i = 0; i < n; i++) {
-        cout << arr[i] << "\n";
-    }
+    arrcout(arr, n);
     delete[] arr;
     return 0;
 }
