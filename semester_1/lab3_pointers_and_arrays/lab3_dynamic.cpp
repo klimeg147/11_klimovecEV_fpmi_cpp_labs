@@ -3,14 +3,14 @@
 using std::cin;
 using std::cout;
 
-void arrcout(int arr[], int n) {
+void arrcout(int* arr, int n) {
 
     for (int i = 0; i < n; i++) {
         cout << arr[i] << "\n";
     }
 }
 
-void productevennum(int arr[], int n) {
+void productevennum(int* arr, int n) {
 
     long long proisv = 1;
     int ost;
@@ -21,7 +21,7 @@ void productevennum(int arr[], int n) {
     return;
 }
 
-void sumnumfirstlastplus(int arr[], int n) {
+void sumnumfirstlastplus(int* arr, int n) {
 
     int sum = 0;
     int fst_plus_ind, lst_plus_ind;
@@ -41,7 +41,7 @@ void sumnumfirstlastplus(int arr[], int n) {
     cout << "The sum of the array elements located between the first and last positive elements is:" << sum << "\n";
 }
 
-void sortarr(int arr[], int n) {
+void sortarr(int* arr, int n) {
 
     int j, cur;
     for (int i = 1; i < n; i++) {
