@@ -5,7 +5,7 @@
 using std::cout;
 using std::cin;
 
-void arrcout(double arr[], int n) {
+void arrcout(double* arr, int n) {
 
     for (int i = 0; i < n; i++) {
         cout << arr[i] << "\n";
@@ -13,7 +13,7 @@ void arrcout(double arr[], int n) {
     return;
 }
 
-void sumafterminabs(double arr[], int n) {
+void sumafterminabs(double* arr, int n) {
 
     double min_modul = std::abs(arr[0]);
     int last_min_modul_index = 0;
@@ -37,7 +37,7 @@ void sumafterminabs(double arr[], int n) {
     return;
 }
 
-void swapmaxmin(double arr[], int n) {
+void swapmaxmin(double* arr, int n) {
 
     int index_max = 0, index_min = 0;
     for (int i = 1; i < n; i++) {
@@ -52,7 +52,7 @@ void swapmaxmin(double arr[], int n) {
     return;
 }
 
-void sortarr(double arr[], int n) {
+void sortarr(double* arr, int n) {
 
     for (int i = 0; i < n; i++) {
         if (arr[i] < 0) {
