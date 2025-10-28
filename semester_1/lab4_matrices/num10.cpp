@@ -5,7 +5,7 @@
 using std::cin;
 using std::cout;
 
-bool islinesMatch(const int* line1, const int* line2, int columns) {
+bool IsLinesMatch(const int* line1, const int* line2, int columns) {
 	bool PolnoeSovp = true;
 	for (int i = 0; i < columns; i++) {
 		if (line1[i] != line2[i]) {
@@ -29,16 +29,16 @@ bool islinesMatch(const int* line1, const int* line2, int columns) {
 	return false;
 }
 
-bool wasPrinted(int** matrice, int currentIndex, int lines, int columns) {
+bool WasPrinted(int** matrice, int currentIndex, int lines, int columns) {
 	for (int i = 0; i < currentIndex; i++) {
-		if (islinesMatch(matrice[i], matrice[currentIndex], columns)) {
+		if (IsLinesMatch(matrice[i], matrice[currentIndex], columns)) {
 			return true;
 		}
 	}
 	return false;
 }
 
-int countOnes(const int* line, int columns) {
+int CountOnes(const int* line, int columns) {
 	int count = 0;
 	for (int i = 0; i < columns; i++) {
 		if (line[i] == 1) count++;
@@ -48,18 +48,17 @@ int countOnes(const int* line, int columns) {
 
 int main() {
 
-
 	char vibor_vvoda;
 	int columns, lines;
 	cout << "Enter the number of columns: ";
 	if (!(cin >> columns) || (columns < 0)) {
-		cout << "Wrong input";
+		cout << "Wrong input, need to be entered integer number, >= 0";
 		std::exit(1);
 	}
 	cout << '\n';
 	cout << "Enter number of lines: ";
 	if (!(cin >> lines) || (lines < 0)) {
-		cout << "Wrong input";
+		cout << "Wrong input, need to be entered integer number, >= 0";
 		std::exit(1);
 	}
 	cout << '\n';
@@ -76,18 +75,30 @@ int main() {
 				cin >> matrice[i][j];
 				if ((matrice[i][j] != 0) && (matrice[i][j] != 1)) {
 					cout << "Wrong input (must be 0 or 1)";
+					for (int i = 0; i < lines; ++i) {
+						delete[] matrice[i];
+					}
+					delete[] matrice;
 					std::exit(1);
 				}
 			}
 		}
 	}
-	if (vibor_vvoda == 'y') {
+	else if (vibor_vvoda == 'y') {
 		srand(time(0));
 		for (int i = 0; i < lines; i++) {
 			for (int j = 0; j < columns; j++) {
 				matrice[i][j] = (rand() % 2);
 			}
 		}
+	}
+	else {
+		cout << "wrong input, next time enter x or y" << '\n';
+		for (int i = 0; i < lines; ++i) {
+			delete[] matrice[i];
+		}
+		delete[] matrice;
+		std::exit(1);
 	}
 	cout << "original matrix:" << '\n';
 	for (int i = 0; i < lines; i++) {
@@ -100,12 +111,12 @@ int main() {
 	cout << "matching lines by groups: \n";
 	bool iffoundgroups = 0;
 	for (int i = 0; i < lines; i++) {
-		if (wasPrinted(matrice, i, lines, columns)) {
+		if (WasPrinted(matrice, i, lines, columns)) {
 			continue;
 		}
 		bool found_Match = 0;
 		for (int j = i + 1; j < lines; j++) {
-			if (islinesMatch(matrice[i], matrice[j], columns)) {
+			if (IsLinesMatch(matrice[i], matrice[j], columns)) {
 				if (found_Match == 0) {
 					cout << "Group: " << (i + 1);
 					found_Match = 1;
@@ -118,20 +129,23 @@ int main() {
 			cout << '\n';
 		}
 	}
+	if (iffoundgroups == 0) {
+		cout << "there is no groups" << '\n';
+	}
 	cout << "------------------------------------------------------\n";
-	int maxnumOnes = 0, linewithmaxoOnes = 0;
+	int maxnumOnes = 0, linewithmaxOnes = 0;
 	for (int i = 0; i < lines; i++) {
-		int numones = countOnes(matrice[i], columns);
-		if (numones > maxnumOnes) {
-			maxnumOnes = numones;
-			linewithmaxoOnes = i;
+		int numOnes = CountOnes(matrice[i], columns);
+		if (numOnes > maxnumOnes) {
+			maxnumOnes = numOnes;
+			linewithmaxOnes = i;
 		}
 	}
 	if (maxnumOnes == 0) {
 		cout << "there are no ones in the matrix" << '\n';
 	}
 	else {
-		cout << "Line with max number of ones is: " << (linewithmaxoOnes + 1) << '\n';
+		cout << "Line with max number of ones is: " << (linewithmaxOnes + 1) << '\n';
 	}
 
 	for (int i = 0; i < lines; ++i) {
