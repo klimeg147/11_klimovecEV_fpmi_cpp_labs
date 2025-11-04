@@ -6,19 +6,19 @@ using std::cin;
 using std::cout;
 
 bool IsLinesMatch(const int* line1, const int* line2, int columns) {
-	bool PolnoeSovp = true;
+	bool FullSovp = true;
 	for (int i = 0; i < columns; i++) {
 		if (line1[i] != line2[i]) {
-			PolnoeSovp = false;
+			FullSovp = false;
 			break;
 		}
 	}
-	if (PolnoeSovp) return true;
+	if (FullSovp) return true;
 
-	for (int sdvig = 1; sdvig < columns; sdvig++) {
+	for (int shift = 1; shift < columns; shift++) {
 		bool sovp = true;
 		for (int i = 0; i < columns; i++) {
-			if (line1[i] != line2[(i + sdvig) % columns]) {
+			if (line1[i] != line2[(i + shift) % columns]) {
 				sovp = false;
 				break;
 			}
@@ -46,35 +46,13 @@ int CountOnes(const int* line, int columns) {
 	return count;
 }
 
-int main() {
-
-	char vibor_vvoda;
-	int columns, lines;
-	cout << "Enter the number of columns: ";
-	if (!(cin >> columns) || (columns < 0)) {
-		cout << "Wrong input, need to be entered integer number, >= 0";
-		std::exit(1);
-	}
-	cout << '\n';
-	cout << "Enter number of lines: ";
-	if (!(cin >> lines) || (lines < 0)) {
-		cout << "Wrong input, need to be entered integer number, >= 0";
-		std::exit(1);
-	}
-	cout << '\n';
-	int** matrice;
-	matrice = new int* [lines];
-	for (int i = 0; i < lines; i++) {
-		matrice[i] = new int[columns];
-	}
-	cout << "Select how the array elements will be created: manually entered - x, randomly - y:";
-	cin >> vibor_vvoda;
-	if (vibor_vvoda == 'x') {
+void ManuallyMatrInput(int** matrice, int lines, int columns) {
+	try {
 		for (int i = 0; i < lines; i++) {
 			for (int j = 0; j < columns; j++) {
 				cin >> matrice[i][j];
 				if ((matrice[i][j] != 0) && (matrice[i][j] != 1)) {
-					cout << "Wrong input (must be 0 or 1)";
+					throw "Wrong input (must be 0 or 1)";
 					for (int i = 0; i < lines; ++i) {
 						delete[] matrice[i];
 					}
@@ -84,31 +62,37 @@ int main() {
 			}
 		}
 	}
-	else if (vibor_vvoda == 'y') {
-		srand(time(0));
-		for (int i = 0; i < lines; i++) {
-			for (int j = 0; j < columns; j++) {
-				matrice[i][j] = (rand() % 2);
-			}
-		}
-	}
-	else {
-		cout << "wrong input, next time enter x or y" << '\n';
+	catch (const char* msg) {
+		std::cerr << "Error!!! " << msg << '\n';
 		for (int i = 0; i < lines; ++i) {
 			delete[] matrice[i];
 		}
 		delete[] matrice;
 		std::exit(1);
 	}
-	cout << "original matrix:" << '\n';
+}
+
+void RandomlyMatrInput(int** matrice, int lines, int columns) {
+
+	for (int i = 0; i < lines; i++) {
+		for (int j = 0; j < columns; j++) {
+			matrice[i][j] = (rand() % 2);
+		}
+	}
+}
+
+void CoutMatr(int** matrice, int lines, int columns) {
+
 	for (int i = 0; i < lines; i++) {
 		for (int j = 0; j < columns; j++) {
 			cout << matrice[i][j];
 		}
 		cout << '\n';
 	}
-	cout << "------------------------------------------------------\n";
-	cout << "matching lines by groups: \n";
+}
+
+void MatchGroups(int** matrice, int lines, int columns) {
+
 	bool iffoundgroups = 0;
 	for (int i = 0; i < lines; i++) {
 		if (WasPrinted(matrice, i, lines, columns)) {
@@ -132,7 +116,10 @@ int main() {
 	if (iffoundgroups == 0) {
 		cout << "there is no groups" << '\n';
 	}
-	cout << "------------------------------------------------------\n";
+}
+
+void FindLineWithMaxOnes(int** matrice, int lines, int columns) {
+
 	int maxnumOnes = 0, linewithmaxOnes = 0;
 	for (int i = 0; i < lines; i++) {
 		int numOnes = CountOnes(matrice[i], columns);
@@ -145,8 +132,66 @@ int main() {
 		cout << "there are no ones in the matrix" << '\n';
 	}
 	else {
-		cout << "Line with max number of ones is: " << (linewithmaxOnes + 1) << '\n';
+		cout << "Line (first) with max number of ones is: " << (linewithmaxOnes + 1) << '\n';
 	}
+}
+
+int main() {
+
+	char choose_matrix_input;
+	int columns, lines;
+	cout << "Enter the number of columns: ";
+	try {
+		if (!(cin >> columns) || (columns < 0)) {
+			throw "(Wrong input, num of columns must be > 0)";
+		}
+		cout << '\n';
+		cout << "Enter number of lines: ";
+		if (!(cin >> lines) || (lines < 0)) {
+			throw "(Wrong input, num of lines must be > 0)";
+		}
+	}
+	catch (const char* msg) {
+		std::cerr << "Error!!! " << msg << '\n';
+		std::exit(1);
+	}
+	cout << '\n';
+
+	int** matrice;
+	matrice = new int* [lines];
+	for (int i = 0; i < lines; i++) {
+		matrice[i] = new int[columns];
+	}
+
+	cout << "Select how the array elements will be created: manually entered - x, randomly - y:";
+	try {
+		cin >> choose_matrix_input;
+		if (choose_matrix_input != 'x' && choose_matrix_input != 'y') {
+			throw "(Wrong input, entered char must be x or y)";
+		}
+	}
+	catch (const char* msg) {
+		std::cerr << "Error!!! " << msg << '\n';
+		for (int i = 0; i < lines; ++i) {
+			delete[] matrice[i];
+		}
+		delete[] matrice;
+		std::exit(1);
+	}
+	if (choose_matrix_input == 'x') {
+		ManuallyMatrInput(matrice, lines, columns);
+	}
+	else {
+		srand(time(0));
+		RandomlyMatrInput(matrice, lines, columns);
+	}
+	cout << "original matrix:" << '\n';
+	CoutMatr(matrice, lines, columns);
+	cout << "------------------------------------------------------\n";
+	cout << "matching lines by groups: \n";
+	MatchGroups(matrice, lines, columns);
+	cout << "------------------------------------------------------\n";
+	FindLineWithMaxOnes(matrice, lines, columns);
 
 	for (int i = 0; i < lines; ++i) {
 		delete[] matrice[i];
