@@ -8,6 +8,10 @@ int main() {
     std::string NewSTR;
     cout << "Enter a string of words separated by punctuation marks: " << '\n';
     std::getline(cin, StartStr);
+    if (StartStr.empty()) {
+        cout << "Input string is empty!\n";
+        return 0;
+    }
     cout << '\n';
 
     int CurUnique = 0, MaxUnique = 0;
@@ -72,6 +76,6 @@ int main() {
             }
         }
     }
-
     cout << "String of words with maximum unique characters: " << NewSTR << '\n';
+
 }
