@@ -31,8 +31,8 @@ struct Book {
 
     void print() {
         cout << "\"" << title << "\" (" << year << ")\n";
-        cout << "УДК: " << udk << "\n";
-        cout << "Авторы: ";
+        cout << "UDK: " << udk << "\n";
+        cout << "Authors: ";
         for (const Author& a : authors) {
             cout << a.surname << " ";
         }
@@ -41,8 +41,7 @@ struct Book {
 };
 
 int main() {
-    setlocale(LC_ALL, "Russian");
-
+    
     list<Book> library;
 
     ifstream file("books.txt");
@@ -69,38 +68,38 @@ int main() {
 
         library.sort();
 
-        cout << "Загружено " << library.size() << " книг\n";
+        cout << "Downloaded " << library.size() << " books\n";
         file.close();
     }
     else {
-        cout << "Файл books.txt не найден\n";
+        cout << "File books.txt not found\n";
     }
 
-    cout << "\nВсе книги (отсортированы по названию)\n";
+    cout << "\nAll books (sorted by names)\n";
     for (Book& b : library) {
         b.print();
     }
 
-    cout << "\n=== Добавление новой книги ===\n";
+    cout << "\n=== Adding new book ===\n";
     Book newBook;
 
-    cout << "Введите УДК: ";
+    cout << "Enter UDK: ";
     cin >> newBook.udk;
 
-    cout << "Введите название: ";
+    cout << "Enter book's name: ";
     cin.ignore();
     getline(cin, newBook.title);
 
-    cout << "Введите год: ";
+    cout << "Enter year: ";
     cin >> newBook.year;
 
     int n;
-    cout << "Сколько авторов? ";
+    cout << "Enter number of authors: ";
     cin >> n;
 
     for (int i = 0; i < n; i++) {
         Author a;
-        cout << "Фамилия автора " << i + 1 << ": ";
+        cout << "Author's surname " << i + 1 << ": ";
         cin >> a.surname;
         newBook.authors.insert(a);
     }
@@ -111,31 +110,31 @@ int main() {
     }
     library.insert(it, newBook);
 
-    cout << "\n=== Все книги после добавления ===\n";
+    cout << "\n=== All books after adding ===\n";
     for (Book& b : library) {
         b.print();
     }
 
-    cout << "\n=== Удаление книги ===\n";
+    cout << "\n=== Book deleting ===\n";
     string delTitle;
-    cout << "Введите название книги для удаления: ";
+    cout << "Enter book's name to delete: ";
     cin.ignore();
     getline(cin, delTitle);
 
     for (auto it = library.begin(); it != library.end(); it++) {
         if (it->title == delTitle) {
             library.erase(it);
-            cout << "Книга удалена\n";
+            cout << "Book deleted\n";
             break;
         }
     }
 
-    cout << "\n=== Поиск книг по автору ===\n";
+    cout << "\n=== Seeking books by author ===\n";
     string authorSurname;
-    cout << "Введите фамилию автора: ";
+    cout << "Enter author's surname: ";
     cin >> authorSurname;
 
-    cout << "Книги автора " << authorSurname << ":\n";
+    cout << "Author's book " << authorSurname << ":\n";
     bool found = false;
     for (Book& b : library) {
         for (const Author& a : b.authors) {
@@ -147,35 +146,35 @@ int main() {
         }
     }
     if (!found) {
-        cout << "Книги не найдены\n";
+        cout << "Books wasn't found\n";
     }
 
-    cout << "\n=== Добавление автора к книге ===\n";
+    cout << "\n=== Adding author to book ===\n";
     string bookTitle;
-    cout << "Введите название книги: ";
+    cout << "Enter book's name: ";
     cin.ignore();
     getline(cin, bookTitle);
 
     for (Book& b : library) {
         if (b.title == bookTitle) {
             Author newAuthor;
-            cout << "Введите фамилию нового автора: ";
+            cout << "Enter new authors surname: ";
             cin >> newAuthor.surname;
             b.authors.insert(newAuthor);
-            cout << "Автор добавлен\n";
-            cout << "Обновленная информация о книге:\n";
+            cout << "Author added\n";
+            cout << "Ubdated book info:\n";
             b.print();
             break;
         }
     }
 
-    cout << "\n=== Удаление автора из книги ===\n";
-    cout << "Введите название книги: ";
+    cout << "\n=== Deleting author from book ===\n";
+    cout << "Enter books name: ";
     cin.ignore();
     getline(cin, bookTitle);
 
     string delAuthor;
-    cout << "Введите фамилию автора для удаления: ";
+    cout << "Enter authors surname to delete: ";
     cin >> delAuthor;
 
     for (Book& b : library) {
@@ -183,8 +182,8 @@ int main() {
             for (auto it = b.authors.begin(); it != b.authors.end(); it++) {
                 if (it->surname == delAuthor) {
                     b.authors.erase(it);
-                    cout << "Автор удален\n";
-                    cout << "Обновленная информация о книге:\n";
+                    cout << "Author deleted\n";
+                    cout << "Updated books info:\n";
                     b.print();
                     break;
                 }
@@ -193,7 +192,7 @@ int main() {
         }
     }
 
-    cout << "\n=== Финальный список книг ===\n";
+    cout << "\n=== Final book list ===\n";
     for (Book& b : library) {
         b.print();
     }
