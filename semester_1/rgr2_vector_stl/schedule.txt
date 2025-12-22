@@ -1,0 +1,10 @@
+1 0 Minsk 10 30 2 15
+2 1 Gomel 14 45 3 30
+3 2 Minsk 9 15 1 45
+4 0 Minsk 16 20 3 0
+5 3 Brest 18 10 4 20
+6 0 Gomel 11 0 2 30
+7 2 Minsk 13 30 1 15
+8 1 Minsk 20 45 5 10
+9 0 Brest 7 50 3 45
+10 4 Minsk 22 15 6 0
