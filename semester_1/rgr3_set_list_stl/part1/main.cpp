@@ -3,8 +3,11 @@
 
 int main() {
     int N;
-    std::cout << "Введите число N: ";
-    std::cin >> N;
+    std::cout << "Enter int number N: ";
+    if (!(std::cin >> N)) {
+        std::cout << "Error, needed to be entered int number";
+        return 1;
+    }
 
     std::set<int> primes;
     for (int i = 2; i <= N; i++) {
@@ -19,7 +22,7 @@ int main() {
         }
     }
 
-    std::cout << "Простые числа до " << N << ":\n";
+    std::cout << "prime numbers up to " << N << ":\n";
     for (int prime : primes) {
         std::cout << prime << " ";
     }
